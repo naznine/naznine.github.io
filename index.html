@@ -1,0 +1,1475 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mansura Naznine | AI Researcher & Computer Scientist</title>
+<meta name="description" content="Mansura Naznine — AI Researcher specializing in Computer Vision, Medical Imaging, and Deep Learning. Research Assistant at Qatar University.">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=DM+Mono:wght@300;400;500&family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #06080f;
+    --surface: #0d1117;
+    --surface2: #161b27;
+    --surface3: #1e2535;
+    --accent: #00e5a0;
+    --accent-dim: rgba(0,229,160,0.12);
+    --accent2: #4fc3f7;
+    --accent2-dim: rgba(79,195,247,0.10);
+    --gold: #f0c060;
+    --gold-dim: rgba(240,192,96,0.10);
+    --text: #dce6f0;
+    --text-muted: #7a8fa6;
+    --text-faint: #3d4f63;
+    --border: rgba(255,255,255,0.06);
+    --border-accent: rgba(0,229,160,0.2);
+    --radius: 12px;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; font-size: 16px; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Lato', sans-serif;
+    line-height: 1.7;
+    overflow-x: hidden;
+  }
+
+  /* SCROLLBAR */
+  ::-webkit-scrollbar { width: 5px; }
+  ::-webkit-scrollbar-track { background: var(--bg); }
+  ::-webkit-scrollbar-thumb { background: var(--accent); border-radius: 4px; }
+
+  /* GRID BG */
+  body::after {
+    content: '';
+    position: fixed; inset: 0;
+    background-image:
+      linear-gradient(rgba(0,229,160,0.025) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(0,229,160,0.025) 1px, transparent 1px);
+    background-size: 70px 70px;
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  /* GLOW ORBS */
+  .orb {
+    position: fixed;
+    border-radius: 50%;
+    filter: blur(100px);
+    pointer-events: none;
+    z-index: 0;
+  }
+  .orb1 { width: 600px; height: 600px; background: rgba(0,229,160,0.04); top: -200px; right: -200px; }
+  .orb2 { width: 500px; height: 500px; background: rgba(79,195,247,0.04); bottom: 200px; left: -200px; }
+
+  /* ====== NAV ====== */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0;
+    z-index: 999;
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 1.1rem 5%;
+    background: rgba(6,8,15,0.88);
+    backdrop-filter: blur(20px);
+    border-bottom: 1px solid var(--border);
+  }
+
+  .nav-brand {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.82rem;
+    color: var(--accent);
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    text-decoration: none;
+  }
+
+  .nav-links {
+    display: flex; gap: 2.2rem; list-style: none;
+  }
+  .nav-links a {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.72rem;
+    color: var(--text-muted);
+    text-decoration: none;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    transition: color 0.25s;
+  }
+  .nav-links a:hover { color: var(--accent); }
+
+  .nav-hamburger {
+    display: none;
+    flex-direction: column; gap: 5px;
+    cursor: pointer; background: none; border: none; padding: 4px;
+  }
+  .nav-hamburger span {
+    display: block; width: 22px; height: 2px;
+    background: var(--text-muted);
+    transition: 0.3s;
+  }
+
+  /* ====== SECTIONS ====== */
+  section { position: relative; z-index: 2; }
+
+  .container {
+    max-width: 1080px;
+    margin: 0 auto;
+    padding: 0 5%;
+  }
+
+  .section-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.7rem;
+    color: var(--accent);
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    margin-bottom: 0.6rem;
+    display: flex; align-items: center; gap: 0.8rem;
+  }
+  .section-label::after {
+    content: '';
+    flex: 1; height: 1px;
+    background: linear-gradient(90deg, var(--border-accent), transparent);
+  }
+
+  .section-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(2rem, 4vw, 2.8rem);
+    font-weight: 700;
+    line-height: 1.15;
+    margin-bottom: 0.5rem;
+    color: #fff;
+  }
+
+  .section-desc {
+    color: var(--text-muted);
+    font-size: 1rem;
+    max-width: 580px;
+    margin-bottom: 3rem;
+  }
+
+  /* ====== HERO ====== */
+  #hero {
+    min-height: 100vh;
+    display: flex; align-items: center;
+    padding: 8rem 5% 5rem;
+  }
+
+  .hero-inner {
+    max-width: 1080px; margin: 0 auto; width: 100%;
+    display: grid; grid-template-columns: 1fr auto;
+    gap: 4rem; align-items: center;
+  }
+
+  .hero-eyebrow {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.75rem;
+    color: var(--accent);
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    margin-bottom: 1.2rem;
+    display: flex; align-items: center; gap: 0.75rem;
+    animation: fadeUp 0.8s ease both;
+  }
+  .hero-eyebrow::before {
+    content: '';
+    width: 28px; height: 1px;
+    background: var(--accent);
+  }
+
+  .hero-name {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(3rem, 6vw, 5.5rem);
+    font-weight: 700;
+    line-height: 1.05;
+    letter-spacing: -0.02em;
+    color: #fff;
+    margin-bottom: 0.3rem;
+    animation: fadeUp 0.8s 0.1s ease both;
+  }
+
+  .hero-name span {
+    display: block;
+    font-style: italic;
+    font-weight: 400;
+    background: linear-gradient(120deg, var(--accent) 0%, var(--accent2) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .hero-role {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.9rem;
+    color: var(--text-muted);
+    margin-bottom: 1.5rem;
+    letter-spacing: 0.06em;
+    animation: fadeUp 0.8s 0.2s ease both;
+  }
+
+  .hero-desc {
+    font-size: 1.05rem;
+    color: var(--text-muted);
+    max-width: 520px;
+    line-height: 1.8;
+    margin-bottom: 2.5rem;
+    animation: fadeUp 0.8s 0.3s ease both;
+  }
+
+  .hero-stats {
+    display: flex; gap: 2.5rem;
+    margin-bottom: 2.5rem;
+    animation: fadeUp 0.8s 0.4s ease both;
+  }
+
+  .stat-item { text-align: center; }
+  .stat-num {
+    font-family: 'Playfair Display', serif;
+    font-size: 2rem;
+    font-weight: 700;
+    color: var(--accent);
+    line-height: 1;
+    display: block;
+  }
+  .stat-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.62rem;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    margin-top: 0.3rem;
+  }
+
+  .hero-links {
+    display: flex; gap: 1rem; flex-wrap: wrap;
+    animation: fadeUp 0.8s 0.5s ease both;
+  }
+
+  .btn {
+    display: inline-flex; align-items: center; gap: 0.5rem;
+    padding: 0.75rem 1.6rem;
+    border-radius: 6px;
+    font-family: 'DM Mono', monospace;
+    font-size: 0.75rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    text-decoration: none;
+    transition: all 0.25s;
+    border: 1px solid transparent;
+  }
+  .btn-primary {
+    background: var(--accent);
+    color: #06080f;
+    font-weight: 500;
+  }
+  .btn-primary:hover {
+    background: #33ffb8;
+    transform: translateY(-2px);
+    box-shadow: 0 8px 24px rgba(0,229,160,0.25);
+  }
+  .btn-outline {
+    border-color: var(--border-accent);
+    color: var(--accent);
+    background: var(--accent-dim);
+  }
+  .btn-outline:hover {
+    border-color: var(--accent);
+    transform: translateY(-2px);
+  }
+  .btn-ghost {
+    border-color: var(--border);
+    color: var(--text-muted);
+    background: transparent;
+  }
+  .btn-ghost:hover {
+    border-color: rgba(255,255,255,0.15);
+    color: var(--text);
+    transform: translateY(-2px);
+  }
+
+  /* HERO CARD */
+  .hero-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 2rem;
+    min-width: 240px;
+    animation: fadeLeft 0.8s 0.3s ease both;
+  }
+  .hero-card-avatar {
+    width: 80px; height: 80px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, var(--accent), var(--accent2));
+    display: flex; align-items: center; justify-content: center;
+    font-family: 'Playfair Display', serif;
+    font-size: 2rem;
+    color: #06080f;
+    font-weight: 700;
+    margin: 0 auto 1.2rem;
+  }
+  .hero-card-info { text-align: center; }
+  .hero-card-info h3 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.1rem;
+    color: #fff;
+    margin-bottom: 0.3rem;
+  }
+  .hero-card-info p {
+    font-size: 0.8rem;
+    color: var(--text-muted);
+    margin-bottom: 1.2rem;
+    line-height: 1.5;
+  }
+  .hero-card-tags {
+    display: flex; flex-wrap: wrap; gap: 0.4rem;
+    justify-content: center;
+  }
+  .tag {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.62rem;
+    padding: 0.25rem 0.7rem;
+    border-radius: 999px;
+    border: 1px solid var(--border);
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+  }
+  .tag-green { border-color: rgba(0,229,160,0.3); color: var(--accent); background: var(--accent-dim); }
+  .tag-blue { border-color: rgba(79,195,247,0.3); color: var(--accent2); background: var(--accent2-dim); }
+  .tag-gold { border-color: rgba(240,192,96,0.3); color: var(--gold); background: var(--gold-dim); }
+
+  /* ====== ABOUT ====== */
+  #about {
+    padding: 6rem 0;
+    background: linear-gradient(180deg, transparent, rgba(13,17,23,0.5), transparent);
+  }
+
+  .about-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4rem;
+    align-items: start;
+  }
+
+  .about-text p {
+    color: var(--text-muted);
+    margin-bottom: 1.2rem;
+    font-size: 0.98rem;
+    line-height: 1.85;
+  }
+
+  .about-text p strong {
+    color: var(--text);
+    font-weight: 600;
+  }
+
+  .info-list {
+    list-style: none;
+    margin-top: 1.5rem;
+  }
+  .info-list li {
+    display: flex; gap: 1rem;
+    padding: 0.7rem 0;
+    border-bottom: 1px solid var(--border);
+    font-size: 0.88rem;
+    align-items: center;
+  }
+  .info-list li:last-child { border-bottom: none; }
+  .info-key {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.7rem;
+    color: var(--accent);
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    min-width: 90px;
+  }
+  .info-val { color: var(--text-muted); }
+  .info-val a { color: var(--accent2); text-decoration: none; }
+  .info-val a:hover { text-decoration: underline; }
+
+  /* INTERESTS */
+  .interests-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0.75rem;
+    margin-top: 1.5rem;
+  }
+  .interest-chip {
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 0.7rem 1rem;
+    font-size: 0.85rem;
+    color: var(--text-muted);
+    display: flex; align-items: center; gap: 0.6rem;
+    transition: all 0.2s;
+  }
+  .interest-chip:hover {
+    border-color: var(--border-accent);
+    color: var(--text);
+    background: var(--surface3);
+  }
+  .interest-chip .dot {
+    width: 6px; height: 6px;
+    border-radius: 50%;
+    background: var(--accent);
+    flex-shrink: 0;
+  }
+
+  /* ====== EDUCATION ====== */
+  #education { padding: 6rem 0; }
+
+  .timeline { position: relative; padding-left: 2rem; }
+  .timeline::before {
+    content: '';
+    position: absolute; left: 0; top: 8px; bottom: 8px;
+    width: 1px;
+    background: linear-gradient(180deg, var(--accent), var(--accent2), transparent);
+  }
+
+  .timeline-item {
+    position: relative;
+    margin-bottom: 2.5rem;
+    padding-left: 1.5rem;
+    animation: fadeUp 0.6s ease both;
+  }
+  .timeline-item::before {
+    content: '';
+    position: absolute; left: -2.35rem; top: 8px;
+    width: 10px; height: 10px;
+    border-radius: 50%;
+    background: var(--accent);
+    border: 2px solid var(--bg);
+    box-shadow: 0 0 0 2px var(--accent);
+  }
+
+  .timeline-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 1.5rem 1.8rem;
+    transition: border-color 0.25s;
+  }
+  .timeline-card:hover { border-color: var(--border-accent); }
+
+  .timeline-date {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.68rem;
+    color: var(--accent);
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    margin-bottom: 0.5rem;
+  }
+  .timeline-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.2rem;
+    color: #fff;
+    margin-bottom: 0.2rem;
+  }
+  .timeline-institution {
+    font-size: 0.88rem;
+    color: var(--accent2);
+    margin-bottom: 0.8rem;
+    font-weight: 600;
+  }
+  .timeline-detail {
+    font-size: 0.85rem;
+    color: var(--text-muted);
+    line-height: 1.7;
+  }
+  .timeline-detail strong { color: var(--text); }
+
+  /* ====== EXPERIENCE ====== */
+  #experience { padding: 6rem 0; background: rgba(13,17,23,0.4); }
+
+  .exp-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.5rem;
+  }
+
+  .exp-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 1.8rem;
+    transition: all 0.25s;
+    position: relative;
+    overflow: hidden;
+  }
+  .exp-card::before {
+    content: '';
+    position: absolute; top: 0; left: 0; right: 0;
+    height: 2px;
+    background: linear-gradient(90deg, var(--accent), var(--accent2));
+    opacity: 0;
+    transition: opacity 0.25s;
+  }
+  .exp-card:hover { border-color: var(--border-accent); transform: translateY(-3px); }
+  .exp-card:hover::before { opacity: 1; }
+
+  .exp-header {
+    display: flex; justify-content: space-between; align-items: flex-start;
+    margin-bottom: 0.8rem;
+    gap: 1rem;
+  }
+  .exp-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.05rem;
+    color: #fff;
+    margin-bottom: 0.2rem;
+  }
+  .exp-place {
+    font-size: 0.82rem;
+    color: var(--accent2);
+    font-weight: 600;
+  }
+  .exp-date {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.65rem;
+    color: var(--accent);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    white-space: nowrap;
+    background: var(--accent-dim);
+    padding: 0.3rem 0.7rem;
+    border-radius: 999px;
+    border: 1px solid var(--border-accent);
+    flex-shrink: 0;
+  }
+  .exp-desc {
+    font-size: 0.85rem;
+    color: var(--text-muted);
+    line-height: 1.7;
+  }
+  .exp-desc li { margin-left: 1rem; margin-bottom: 0.3rem; }
+
+  /* ====== PUBLICATIONS ====== */
+  #publications { padding: 6rem 0; }
+
+  .pub-list { display: flex; flex-direction: column; gap: 1rem; }
+
+  .pub-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 1.5rem 1.8rem;
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: 1.2rem;
+    align-items: start;
+    transition: all 0.25s;
+  }
+  .pub-card:hover {
+    border-color: var(--border-accent);
+    background: var(--surface2);
+  }
+
+  .pub-num {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.75rem;
+    color: var(--accent);
+    font-weight: 500;
+    background: var(--accent-dim);
+    border: 1px solid var(--border-accent);
+    border-radius: 6px;
+    padding: 0.3rem 0.6rem;
+    white-space: nowrap;
+    margin-top: 2px;
+  }
+
+  .pub-title {
+    font-size: 0.95rem;
+    color: var(--text);
+    font-weight: 600;
+    margin-bottom: 0.4rem;
+    line-height: 1.5;
+  }
+  .pub-meta {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.7rem;
+    color: var(--text-muted);
+    margin-bottom: 0.5rem;
+    letter-spacing: 0.04em;
+  }
+  .pub-meta span {
+    color: var(--accent2);
+    font-style: italic;
+  }
+  .pub-link {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.65rem;
+    color: var(--accent);
+    text-decoration: none;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    transition: opacity 0.2s;
+    display: inline-flex; align-items: center; gap: 0.3rem;
+  }
+  .pub-link:hover { opacity: 0.7; }
+
+  .pub-under-review {
+    opacity: 0.7;
+    border-style: dashed;
+  }
+  .review-badge {
+    display: inline-block;
+    font-family: 'DM Mono', monospace;
+    font-size: 0.6rem;
+    padding: 0.2rem 0.6rem;
+    border-radius: 999px;
+    background: var(--gold-dim);
+    border: 1px solid rgba(240,192,96,0.3);
+    color: var(--gold);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    margin-bottom: 0.4rem;
+  }
+
+  /* ====== SKILLS ====== */
+  #skills { padding: 6rem 0; background: rgba(13,17,23,0.4); }
+
+  .skills-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.5rem;
+  }
+
+  .skill-group {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 1.5rem;
+    transition: all 0.25s;
+  }
+  .skill-group:hover { border-color: var(--border-accent); }
+
+  .skill-group-title {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.7rem;
+    color: var(--accent);
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    margin-bottom: 1rem;
+    padding-bottom: 0.7rem;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .skill-tags { display: flex; flex-wrap: wrap; gap: 0.5rem; }
+  .skill-tag {
+    font-size: 0.8rem;
+    padding: 0.3rem 0.75rem;
+    border-radius: 6px;
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    color: var(--text-muted);
+    transition: all 0.2s;
+  }
+  .skill-tag:hover {
+    background: var(--surface3);
+    border-color: var(--border-accent);
+    color: var(--text);
+  }
+
+  /* ====== ACHIEVEMENTS ====== */
+  #achievements { padding: 6rem 0; }
+
+  .ach-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1rem;
+  }
+
+  .ach-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 1.2rem 1.5rem;
+    display: flex; align-items: flex-start; gap: 1rem;
+    transition: all 0.2s;
+  }
+  .ach-card:hover {
+    border-color: var(--gold-dim);
+    border-color: rgba(240,192,96,0.25);
+    transform: translateX(4px);
+  }
+
+  .ach-year {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.7rem;
+    color: var(--gold);
+    background: var(--gold-dim);
+    border: 1px solid rgba(240,192,96,0.25);
+    border-radius: 6px;
+    padding: 0.3rem 0.6rem;
+    white-space: nowrap;
+    flex-shrink: 0;
+  }
+  .ach-text {
+    font-size: 0.88rem;
+    color: var(--text-muted);
+    line-height: 1.5;
+  }
+  .ach-text strong { color: var(--text); }
+
+  /* ====== CONTACT ====== */
+  #contact { padding: 6rem 0 5rem; }
+
+  .contact-inner {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 20px;
+    padding: 4rem;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+  .contact-inner::before {
+    content: '';
+    position: absolute; inset: 0;
+    background: radial-gradient(ellipse at 50% 0%, rgba(0,229,160,0.06), transparent 60%);
+    pointer-events: none;
+  }
+
+  .contact-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(1.8rem, 3.5vw, 2.8rem);
+    color: #fff;
+    margin-bottom: 1rem;
+  }
+  .contact-sub {
+    color: var(--text-muted);
+    max-width: 500px;
+    margin: 0 auto 2.5rem;
+    line-height: 1.8;
+  }
+
+  .contact-links {
+    display: flex; justify-content: center; flex-wrap: wrap; gap: 1rem;
+    margin-bottom: 2rem;
+  }
+
+  .social-link {
+    display: inline-flex; align-items: center; gap: 0.6rem;
+    padding: 0.75rem 1.5rem;
+    border-radius: 8px;
+    font-family: 'DM Mono', monospace;
+    font-size: 0.75rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    text-decoration: none;
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    color: var(--text-muted);
+    transition: all 0.25s;
+  }
+  .social-link:hover {
+    border-color: var(--border-accent);
+    color: var(--accent);
+    background: var(--surface3);
+    transform: translateY(-2px);
+  }
+
+  .contact-email {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.88rem;
+    color: var(--text-muted);
+  }
+  .contact-email a {
+    color: var(--accent);
+    text-decoration: none;
+  }
+  .contact-email a:hover { text-decoration: underline; }
+
+  /* ====== FOOTER ====== */
+  footer {
+    padding: 2rem 5%;
+    border-top: 1px solid var(--border);
+    display: flex; justify-content: space-between; align-items: center;
+    position: relative; z-index: 2;
+  }
+  .footer-text {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.7rem;
+    color: var(--text-faint);
+    letter-spacing: 0.08em;
+  }
+  .footer-text span { color: var(--accent); }
+
+  /* ====== ANIMATIONS ====== */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(24px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  @keyframes fadeLeft {
+    from { opacity: 0; transform: translateX(24px); }
+    to { opacity: 1; transform: translateX(0); }
+  }
+
+  .reveal {
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.6s ease, transform 0.6s ease;
+  }
+  .reveal.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  /* ====== RESPONSIVE ====== */
+  @media (max-width: 768px) {
+    .nav-links { display: none; }
+    .nav-links.open {
+      display: flex; flex-direction: column;
+      position: absolute; top: 100%; left: 0; right: 0;
+      background: rgba(6,8,15,0.98);
+      padding: 1.5rem 5%;
+      border-bottom: 1px solid var(--border);
+      gap: 1.2rem;
+    }
+    .nav-hamburger { display: flex; }
+
+    .hero-inner { grid-template-columns: 1fr; }
+    .hero-card { display: none; }
+    .about-grid { grid-template-columns: 1fr; }
+    .exp-grid { grid-template-columns: 1fr; }
+    .skills-grid { grid-template-columns: 1fr 1fr; }
+    .ach-grid { grid-template-columns: 1fr; }
+    .contact-inner { padding: 2.5rem 1.5rem; }
+    .hero-stats { gap: 1.5rem; }
+    footer { flex-direction: column; gap: 0.5rem; text-align: center; }
+  }
+
+  @media (max-width: 480px) {
+    .skills-grid { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<div class="orb orb1"></div>
+<div class="orb orb2"></div>
+
+<!-- NAV -->
+<nav>
+  <a class="nav-brand" href="#hero">Mansura Naznine</a>
+  <ul class="nav-links" id="navLinks">
+    <li><a href="#about">About</a></li>
+    <li><a href="#education">Education</a></li>
+    <li><a href="#experience">Experience</a></li>
+    <li><a href="#publications">Publications</a></li>
+    <li><a href="#skills">Skills</a></li>
+    <li><a href="#achievements">Achievements</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+  <button class="nav-hamburger" id="hamburger" aria-label="Menu">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="hero-inner">
+    <div class="hero-content">
+      <div class="hero-eyebrow">AI Researcher · Computer Scientist</div>
+      <h1 class="hero-name">
+        Mansura
+        <span>Naznine</span>
+      </h1>
+      <div class="hero-role">Research Assistant @ Qatar University · MSc Candidate @ UKM</div>
+      <p class="hero-desc">
+        Passionate about pushing the frontiers of <strong>Artificial Intelligence</strong> and <strong>Computer Vision</strong>. 
+        I build deep learning systems for medical imaging, hyperspectral analysis, and intelligent healthcare solutions.
+      </p>
+
+      <div class="hero-stats">
+        <div class="stat-item">
+          <span class="stat-num">10+</span>
+          <div class="stat-label">Publications</div>
+        </div>
+        <div class="stat-item">
+          <span class="stat-num">1300+</span>
+          <div class="stat-label">Problems Solved</div>
+        </div>
+        <div class="stat-item">
+          <span class="stat-num">200+</span>
+          <div class="stat-label">Contests</div>
+        </div>
+      </div>
+
+      <div class="hero-links">
+        <a href="https://scholar.google.com/citations?user=zbqt1qUAAAAJ&hl=en" target="_blank" class="btn btn-primary">Google Scholar</a>
+        <a href="https://github.com/naznine" target="_blank" class="btn btn-outline">GitHub</a>
+        <a href="https://www.linkedin.com/in/mansura-naznine/" target="_blank" class="btn btn-ghost">LinkedIn</a>
+      </div>
+    </div>
+
+    <div class="hero-card">
+      <div class="hero-card-avatar">MN</div>
+      <div class="hero-card-info">
+        <h3>Mansura Naznine</h3>
+        <p>Doha, Qatar<br>naznine31@gmail.com<br>+974 3120 0395</p>
+        <div class="hero-card-tags">
+          <span class="tag tag-green">Deep Learning</span>
+          <span class="tag tag-blue">Computer Vision</span>
+          <span class="tag tag-green">Medical Imaging</span>
+          <span class="tag tag-blue">Hyperspectral</span>
+          <span class="tag tag-gold">Competitive Coder</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="container">
+    <div class="section-label">About Me</div>
+    <h2 class="section-title">Who I Am</h2>
+    <div class="about-grid reveal">
+      <div class="about-text">
+        <p>
+          I am an <strong>AI researcher and computer scientist</strong> with a deep commitment to solving real-world problems through intelligent systems. 
+          My work spans medical image analysis, computer vision, bioinformatics, and deep learning — bridging the gap between theoretical research and impactful applications.
+        </p>
+        <p>
+          Currently, I serve as a <strong>Research Assistant in the Machine Learning Group at Qatar University</strong>, where I apply AI and machine learning in healthcare and agriculture. 
+          I'm simultaneously pursuing my <strong>MSc at Universiti Kebangsaan Malaysia</strong>, focusing on hyperspectral imaging with advanced deep learning architectures.
+        </p>
+        <p>
+          Beyond research, I am a passionate <strong>competitive programmer</strong> with 1300+ problems solved and a track record in national and international contests, 
+          a community leader in AI/ML, and an advocate for gender equity in technology.
+        </p>
+
+        <ul class="info-list">
+          <li><span class="info-key">Location</span><span class="info-val">Doha, Qatar (Hybrid)</span></li>
+          <li><span class="info-key">Email</span><span class="info-val"><a href="mailto:naznine31@gmail.com">naznine31@gmail.com</a></span></li>
+          <li><span class="info-key">Phone</span><span class="info-val">+974 3120 0395</span></li>
+          <li><span class="info-key">Scholar</span><span class="info-val"><a href="https://scholar.google.com/citations?user=zbqt1qUAAAAJ&hl=en" target="_blank">Google Scholar Profile</a></span></li>
+          <li><span class="info-key">StopStalk</span><span class="info-val"><a href="https://www.stopstalk.com/user/profile/Mansura" target="_blank">stopstalk.com/Mansura</a></span></li>
+          <li><span class="info-key">Languages</span><span class="info-val">Bangla (Native) · English (Professional)</span></li>
+        </ul>
+      </div>
+
+      <div>
+        <div class="section-label" style="margin-bottom:1rem">Research Interests</div>
+        <div class="interests-grid">
+          <div class="interest-chip"><span class="dot"></span>Artificial Intelligence</div>
+          <div class="interest-chip"><span class="dot"></span>Machine Learning</div>
+          <div class="interest-chip"><span class="dot"></span>Image Processing</div>
+          <div class="interest-chip"><span class="dot"></span>Computer Vision</div>
+          <div class="interest-chip"><span class="dot"></span>Cyber Security</div>
+          <div class="interest-chip"><span class="dot"></span>Data Compression</div>
+          <div class="interest-chip"><span class="dot"></span>Medical Imaging</div>
+          <div class="interest-chip"><span class="dot"></span>Bioinformatics</div>
+          <div class="interest-chip"><span class="dot"></span>Hyperspectral Analysis</div>
+          <div class="interest-chip"><span class="dot"></span>Deep Learning</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- EDUCATION -->
+<section id="education">
+  <div class="container">
+    <div class="section-label">Education</div>
+    <h2 class="section-title">Academic Background</h2>
+    <p class="section-desc">A foundation in computer science engineering, deepened through research-focused graduate study.</p>
+
+    <div class="timeline reveal">
+      <div class="timeline-item">
+        <div class="timeline-card">
+          <div class="timeline-date">Mar 2025 – Mar 2027</div>
+          <div class="timeline-title">MSc, Electrical, Electronic & System Engineering</div>
+          <div class="timeline-institution">Universiti Kebangsaan Malaysia (UKM) · Research Mode</div>
+          <div class="timeline-detail">
+            <strong>Research Topic:</strong> Hyperspectral Imaging Analysis using Advanced Computer Vision and Deep Learning. 
+            Focused on spectral-spatial integration with Swin Transformer and cross-modal attention mechanisms for medical classification tasks.
+          </div>
+        </div>
+      </div>
+
+      <div class="timeline-item">
+        <div class="timeline-card">
+          <div class="timeline-date">Jan 2018 – Sep 2023</div>
+          <div class="timeline-title">BSc, Computer Science & Engineering</div>
+          <div class="timeline-institution">Rajshahi University of Engineering & Technology (RUET) · CGPA: 3.48</div>
+          <div class="timeline-detail">
+            <strong>Relevant Courses:</strong> Software Engineering, Artificial Intelligence, Digital Image Processing, Data Mining, Network Security, Neural Networks and Fuzzy Systems.
+            Actively participated in RUET Analytical Programming Lab (RAPL).
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- EXPERIENCE -->
+<section id="experience">
+  <div class="container">
+    <div class="section-label">Experience</div>
+    <h2 class="section-title">Professional Journey</h2>
+    <p class="section-desc">Research and academic experience across Qatar, Bangladesh, and Malaysia.</p>
+
+    <div class="exp-grid reveal">
+      <div class="exp-card">
+        <div class="exp-header">
+          <div>
+            <div class="exp-title">Research Assistant</div>
+            <div class="exp-place">Qatar University — Machine Learning Group</div>
+          </div>
+          <div class="exp-date">Mar 2024 – Present</div>
+        </div>
+        <ul class="exp-desc">
+          <li>Applied AI and ML techniques in healthcare and agriculture research</li>
+          <li>Developed solutions for disease prediction, medical image analysis, and agricultural applications</li>
+          <li>Contributed to IRCC grant-funded projects at Qatar University</li>
+          <li>Supported grant proposal preparation and collaborative research activities</li>
+        </ul>
+      </div>
+
+      <div class="exp-card">
+        <div class="exp-header">
+          <div>
+            <div class="exp-title">Lecturer, Computer Science</div>
+            <div class="exp-place">Lalon University of Science and Arts</div>
+          </div>
+          <div class="exp-date">Aug 2024 – Apr 2025</div>
+        </div>
+        <ul class="exp-desc">
+          <li>Delivered lectures in Computer Science & Engineering to undergraduate students</li>
+          <li>Kushtia, Bangladesh (alongside research responsibilities)</li>
+        </ul>
+      </div>
+
+      <div class="exp-card">
+        <div class="exp-header">
+          <div>
+            <div class="exp-title">Researcher — Medical Image Analysis</div>
+            <div class="exp-place">Qatar University</div>
+          </div>
+          <div class="exp-date">Mar 2024 – Present</div>
+        </div>
+        <ul class="exp-desc">
+          <li>Signal processing and statistical analysis in medical diagnosis</li>
+          <li>AI-driven research: waste classification, GI disease detection, disease prediction</li>
+          <li>Published and co-authored multiple peer-reviewed journal papers</li>
+        </ul>
+      </div>
+
+      <div class="exp-card">
+        <div class="exp-header">
+          <div>
+            <div class="exp-title">Researcher — Bioinformatics & Vision</div>
+            <div class="exp-place">RUET Research Lab</div>
+          </div>
+          <div class="exp-date">May 2021 – Feb 2024</div>
+        </div>
+        <ul class="exp-desc">
+          <li>AI-driven research on gastrointestinal disease detection and mulberry leaf disease prediction</li>
+          <li>Methods for time complexity reduction in video compression (HEVC)</li>
+          <li>ML techniques for phosphoglycerylation site prediction using bioinformatics</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- Community roles -->
+    <div style="margin-top:2rem;" class="reveal">
+      <div class="section-label" style="margin-bottom:1rem;">Community & Teaching</div>
+      <div class="exp-grid">
+        <div class="exp-card">
+          <div class="exp-header">
+            <div>
+              <div class="exp-title">Community Leader</div>
+              <div class="exp-place">AIML Professional Community, Bangladesh</div>
+            </div>
+            <div class="exp-date">2026</div>
+          </div>
+        </div>
+        <div class="exp-card">
+          <div class="exp-header">
+            <div>
+              <div class="exp-title">AI Instructor</div>
+              <div class="exp-place">AI Bangladesh, Rajshahi</div>
+            </div>
+            <div class="exp-date">2024</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PUBLICATIONS -->
+<section id="publications">
+  <div class="container">
+    <div class="section-label">Publications</div>
+    <h2 class="section-title">Research Output</h2>
+    <p class="section-desc">Peer-reviewed journal articles, conference proceedings, and papers under review.</p>
+
+    <div class="pub-list reveal">
+
+      <div class="pub-card">
+        <div class="pub-num">[1]</div>
+        <div>
+          <div class="pub-title">PLDs-CNN-Ridge-ELM: A parallel lightweight two-stage waste classification model guided by SHAP</div>
+          <div class="pub-meta">M. Naznine et al. · <span>Engineering Applications of Artificial Intelligence</span> · 2025</div>
+          <a href="https://doi.org/10.1016/j.engappai.2025.112522" target="_blank" class="pub-link">↗ DOI Link</a>
+        </div>
+      </div>
+
+      <div class="pub-card">
+        <div class="pub-num">[2]</div>
+        <div>
+          <div class="pub-title">An Ensemble Deep Learning Approach for Accurate Urinary Sediment Detection Using YOLOv9e and KD-YOLOX-ViT</div>
+          <div class="pub-meta">M. Naznine et al. · <span>IEEE Access</span> · vol. 13, pp. 101934–101954, 2025</div>
+          <a href="https://doi.org/10.1109/ACCESS.2025.3577959" target="_blank" class="pub-link">↗ DOI Link</a>
+        </div>
+      </div>
+
+      <div class="pub-card">
+        <div class="pub-num">[3]</div>
+        <div>
+          <div class="pub-title">How consistent is the interpretation of renal scarring in pediatric patients using technetium-99m dimercaptosuccinic acid scintigraphy</div>
+          <div class="pub-meta">M. Naznine et al. · <span>Pediatric Radiology</span> · 2025</div>
+          <a href="https://doi.org/10.1007/s00247-025-06379-z" target="_blank" class="pub-link">↗ DOI Link</a>
+        </div>
+      </div>
+
+      <div class="pub-card">
+        <div class="pub-num">[4]</div>
+        <div>
+          <div class="pub-title">Mulberry Leaf Disease Detection Using CNN-based Smart Android Application</div>
+          <div class="pub-meta">A. Salam, M. Naznine et al. · <span>IEEE Access</span> · 2024</div>
+          <a href="https://doi.org/10.1109/ACCESS.2024.3407153" target="_blank" class="pub-link">↗ DOI Link</a>
+        </div>
+      </div>
+
+      <div class="pub-card">
+        <div class="pub-num">[5]</div>
+        <div>
+          <div class="pub-title">Hybrid Neural Networks for Precise Hydronephrosis Classification Using Deep Learning</div>
+          <div class="pub-meta">A. Salam, M. Naznine et al. · <span>Urology</span> · 2025</div>
+          <a href="https://doi.org/10.1016/j.urology.2025.08.005" target="_blank" class="pub-link">↗ DOI Link</a>
+        </div>
+      </div>
+
+      <div class="pub-card">
+        <div class="pub-num">[6]</div>
+        <div>
+          <div class="pub-title">Harnessing Smartphone Sensors for Enhanced Road Safety: A Comprehensive Dataset and Review</div>
+          <div class="pub-meta">A. Khandakar, M. Naznine et al. · <span>Scientific Data</span> · vol. 12, P. 418, 2025</div>
+          <a href="https://doi.org/10.1038/s41597-024-04193-0" target="_blank" class="pub-link">↗ DOI Link</a>
+        </div>
+      </div>
+
+      <div class="pub-card">
+        <div class="pub-num">[7]</div>
+        <div>
+          <div class="pub-title">Enhancing waste sorting and recycling efficiency: robust deep learning-based approach for classification and detection</div>
+          <div class="pub-meta">F.R. Sayem, M. Naznine et al. · <span>Neural Computing and Applications</span> · 2024</div>
+          <a href="https://doi.org/10.1007/s00521-024-10855-2" target="_blank" class="pub-link">↗ DOI Link</a>
+        </div>
+      </div>
+
+      <div class="pub-card">
+        <div class="pub-num">[8]</div>
+        <div>
+          <div class="pub-title">An Automated Waste Classification System Using Deep Learning Techniques: Toward Efficient Waste Recycling and Environmental Sustainability</div>
+          <div class="pub-meta">M. Nahiduzzaman, M. Naznine et al. · <span>Knowledge-Based Systems</span> · 2025</div>
+          <a href="https://doi.org/10.1016/j.knosys.2025.113028" target="_blank" class="pub-link">↗ DOI Link</a>
+        </div>
+      </div>
+
+      <div class="pub-card">
+        <div class="pub-num">[9]</div>
+        <div>
+          <div class="pub-title">Detection of various gastrointestinal tract diseases through a deep learning method with ensemble ELM and explainable AI</div>
+          <div class="pub-meta">M. F. Ahamed, M. Naznine et al. · <span>Expert Systems with Applications</span> · vol. 256, 2024</div>
+          <a href="https://doi.org/10.1016/j.eswa.2024.124908" target="_blank" class="pub-link">↗ DOI Link</a>
+        </div>
+      </div>
+
+      <div class="pub-card">
+        <div class="pub-num">[10]</div>
+        <div>
+          <div class="pub-title">Artificial Intelligence Tools in Pediatric Urology: A Comprehensive Review of Recent Advances</div>
+          <div class="pub-meta">A. T. Chowdhury, M. Naznine et al. · <span>Diagnostics</span> · 14(18):2059, 2024</div>
+          <a href="https://doi.org/10.3390/diagnostics14182059" target="_blank" class="pub-link">↗ DOI Link</a>
+        </div>
+      </div>
+
+      <div class="pub-card">
+        <div class="pub-num">[C1]</div>
+        <div>
+          <div class="pub-title">Time Complexity Reduction of CU Splitting in HEVC Intra Coding Using Zerocross Edge Detection Method</div>
+          <div class="pub-meta">M. Z. Islam, M. Naznine et al. · <span>26th ICCIT</span> · Cox's Bazar, Bangladesh, 2023</div>
+          <a href="https://doi.org/10.1109/ICCIT60459.2023.10441214" target="_blank" class="pub-link">↗ DOI Link</a>
+        </div>
+      </div>
+
+      <!-- Under Review -->
+      <div style="margin-top:0.5rem;">
+        <div class="section-label" style="margin-bottom:0.8rem">Under Review</div>
+      </div>
+
+      <div class="pub-card pub-under-review">
+        <div class="pub-num">[R1]</div>
+        <div>
+          <div class="review-badge">Under Review</div>
+          <div class="pub-title">Spectral–Spatial Integration of Hyperspectral Imaging for Glioblastoma Classification with Cross-Modal Attention and Swin Transformer</div>
+          <div class="pub-meta">M. Naznine et al. · <span>Engineering Applications of Artificial Intelligence</span></div>
+        </div>
+      </div>
+
+      <div class="pub-card pub-under-review">
+        <div class="pub-num">[R2]</div>
+        <div>
+          <div class="review-badge">Under Review</div>
+          <div class="pub-title">AI-Assisted Detection of Renal Scarring in Pediatric DMSA Scans: A Comparative Study of Deep Learning and Radiologist Interpretation</div>
+          <div class="pub-meta">M. Naznine et al. · <span>BMC Medical Imaging</span></div>
+        </div>
+      </div>
+
+      <div class="pub-card pub-under-review">
+        <div class="pub-num">[R3]</div>
+        <div>
+          <div class="review-badge">Under Review</div>
+          <div class="pub-title">Integrating Image Segmentation and Regression Models for Enhanced Lettuce Trait Prediction</div>
+          <div class="pub-meta">A. Salam, M. Naznine et al. · <span>Soft Computing</span></div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- SKILLS -->
+<section id="skills">
+  <div class="container">
+    <div class="section-label">Skills</div>
+    <h2 class="section-title">Technical Expertise</h2>
+    <p class="section-desc">Languages, tools, and research competencies built through academic and industry work.</p>
+
+    <div class="skills-grid reveal">
+      <div class="skill-group">
+        <div class="skill-group-title">Programming Languages</div>
+        <div class="skill-tags">
+          <span class="skill-tag">Python</span>
+          <span class="skill-tag">C / C++</span>
+          <span class="skill-tag">Java</span>
+          <span class="skill-tag">MATLAB</span>
+          <span class="skill-tag">HTML</span>
+          <span class="skill-tag">CSS</span>
+        </div>
+      </div>
+
+      <div class="skill-group">
+        <div class="skill-group-title">AI / ML / DL</div>
+        <div class="skill-tags">
+          <span class="skill-tag">Deep Learning</span>
+          <span class="skill-tag">CNN</span>
+          <span class="skill-tag">YOLO</span>
+          <span class="skill-tag">Swin Transformer</span>
+          <span class="skill-tag">ELM</span>
+          <span class="skill-tag">Explainable AI (SHAP)</span>
+          <span class="skill-tag">Transfer Learning</span>
+        </div>
+      </div>
+
+      <div class="skill-group">
+        <div class="skill-group-title">Research Areas</div>
+        <div class="skill-tags">
+          <span class="skill-tag">Medical Imaging</span>
+          <span class="skill-tag">Hyperspectral Analysis</span>
+          <span class="skill-tag">Bioinformatics</span>
+          <span class="skill-tag">Data Compression</span>
+          <span class="skill-tag">Computer Vision</span>
+        </div>
+      </div>
+
+      <div class="skill-group">
+        <div class="skill-group-title">Tools & Platforms</div>
+        <div class="skill-tags">
+          <span class="skill-tag">Git / GitHub</span>
+          <span class="skill-tag">MySQL</span>
+          <span class="skill-tag">LaTeX</span>
+          <span class="skill-tag">React.js</span>
+          <span class="skill-tag">Jupyter</span>
+        </div>
+      </div>
+
+      <div class="skill-group">
+        <div class="skill-group-title">Research Skills</div>
+        <div class="skill-tags">
+          <span class="skill-tag">Experimental Design</span>
+          <span class="skill-tag">Literature Review</span>
+          <span class="skill-tag">Scientific Writing</span>
+          <span class="skill-tag">Grant Proposals</span>
+          <span class="skill-tag">Peer Review</span>
+        </div>
+      </div>
+
+      <div class="skill-group">
+        <div class="skill-group-title">Competitive Programming</div>
+        <div class="skill-tags">
+          <span class="skill-tag">1300+ Problems Solved</span>
+          <span class="skill-tag">200+ Contests</span>
+          <span class="skill-tag">Codeforces Specialist</span>
+          <span class="skill-tag">Algorithms</span>
+          <span class="skill-tag">Data Structures</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ACHIEVEMENTS -->
+<section id="achievements">
+  <div class="container">
+    <div class="section-label">Achievements</div>
+    <h2 class="section-title">Awards & Competitions</h2>
+    <p class="section-desc">Recognition in programming, research, and community leadership.</p>
+
+    <div class="ach-grid reveal">
+      <div class="ach-card">
+        <div class="ach-year">2025</div>
+        <div class="ach-text"><strong>Top 10 Finalist – Spark Category</strong><br>Qatar University Health Tech Hackathon</div>
+      </div>
+      <div class="ach-card">
+        <div class="ach-year">2023</div>
+        <div class="ach-text"><strong>Bronze Medal (12th Place)</strong><br>ICPC Algo Queen</div>
+      </div>
+      <div class="ach-card">
+        <div class="ach-year">2023</div>
+        <div class="ach-text"><strong>6th Place</strong><br>Luna Shamsuddoha Girls in ICT Day Celebration Contest by BdOSN</div>
+      </div>
+      <div class="ach-card">
+        <div class="ach-year">2022</div>
+        <div class="ach-text"><strong>Outstanding Performance Award</strong><br>Department of CSE, RUET</div>
+      </div>
+      <div class="ach-card">
+        <div class="ach-year">2022</div>
+        <div class="ach-text"><strong>16th Place</strong><br>National Girls' Programming Contest</div>
+      </div>
+      <div class="ach-card">
+        <div class="ach-year">2022</div>
+        <div class="ach-text"><strong>7th Place</strong><br>BdOSN CodeRace – International Girls in ICT Day Celebration</div>
+      </div>
+      <div class="ach-card">
+        <div class="ach-year">2021</div>
+        <div class="ach-text"><strong>6th Place</strong><br>National Girls' Programming Contest</div>
+      </div>
+      <div class="ach-card">
+        <div class="ach-year">2021</div>
+        <div class="ach-text"><strong>Codeforces Specialist</strong><br>Competitive Programming Rating</div>
+      </div>
+      <div class="ach-card">
+        <div class="ach-year">2021</div>
+        <div class="ach-text"><strong>11th Place</strong><br>Ada Lovelace National Girls' Programming Contest</div>
+      </div>
+      <div class="ach-card">
+        <div class="ach-year">2020</div>
+        <div class="ach-text"><strong>20th Place</strong><br>Ada Lovelace National Girls' Programming Contest</div>
+      </div>
+      <div class="ach-card">
+        <div class="ach-year">2019</div>
+        <div class="ach-text"><strong>7th Place</strong><br>National Girls' Programming Contest</div>
+      </div>
+      <div class="ach-card">
+        <div class="ach-year">2019</div>
+        <div class="ach-text"><strong>12th Place</strong><br>Inter University Girls' Programming Contest Season 2</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="container">
+    <div class="contact-inner reveal">
+      <div class="section-label" style="justify-content:center; margin-bottom:1rem;">Get In Touch</div>
+      <h2 class="contact-title">Let's Collaborate</h2>
+      <p class="contact-sub">
+        I'm open to research collaborations, academic opportunities, speaking engagements, and interesting projects in AI and computer vision. Feel free to reach out!
+      </p>
+
+      <div class="contact-links">
+        <a href="mailto:naznine31@gmail.com" class="social-link">
+          ✉ Email Me
+        </a>
+        <a href="https://scholar.google.com/citations?user=zbqt1qUAAAAJ&hl=en" target="_blank" class="social-link">
+          🎓 Google Scholar
+        </a>
+        <a href="https://github.com/naznine" target="_blank" class="social-link">
+          ⌥ GitHub
+        </a>
+        <a href="https://www.linkedin.com/in/mansura-naznine/" target="_blank" class="social-link">
+          ↗ LinkedIn
+        </a>
+        <a href="https://www.stopstalk.com/user/profile/Mansura" target="_blank" class="social-link">
+          ⊞ StopStalk
+        </a>
+      </div>
+
+      <div class="contact-email">
+        Direct email: <a href="mailto:naznine31@gmail.com">naznine31@gmail.com</a> · Phone: <a href="tel:+97431200395">+974 3120 0395</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-text">© 2025 <span>Mansura Naznine</span> · All rights reserved</div>
+  <div class="footer-text">Built with <span>♥</span> · Hosted on GitHub Pages</div>
+</footer>
+
+<script>
+  // Mobile menu
+  const hamburger = document.getElementById('hamburger');
+  const navLinks = document.getElementById('navLinks');
+  hamburger.addEventListener('click', () => {
+    navLinks.classList.toggle('open');
+  });
+
+  // Close menu on link click
+  navLinks.querySelectorAll('a').forEach(a => {
+    a.addEventListener('click', () => navLinks.classList.remove('open'));
+  });
+
+  // Scroll reveal
+  const reveals = document.querySelectorAll('.reveal');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.08, rootMargin: '0px 0px -40px 0px' });
+
+  reveals.forEach(el => observer.observe(el));
+
+  // Smooth active nav highlighting
+  const sections = document.querySelectorAll('section[id]');
+  const navAs = document.querySelectorAll('.nav-links a');
+
+  window.addEventListener('scroll', () => {
+    let current = '';
+    sections.forEach(s => {
+      if (window.scrollY >= s.offsetTop - 120) current = s.id;
+    });
+    navAs.forEach(a => {
+      a.style.color = a.getAttribute('href') === '#' + current
+        ? 'var(--accent)'
+        : '';
+    });
+  });
+</script>
+
+</body>
+</html>
