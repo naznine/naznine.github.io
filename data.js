@@ -5,14 +5,14 @@ showPlaceholders: true,
 name: "Mansura Naznine",
 title: "AI & Computer Vision Researcher",
 tagline: "Biomedical AI | Multimodal Learning | Computer Vision",
-intro: "I work on deep learning for computer vision and biomedical image analysis, including hyperspectral imaging, nuclear medicine scans, and urology imaging. I am interested in extending this work toward reliable, human-centered, and multimodal AI systems.",
+intro: "My research background is in artificial intelligence, machine learning, computer vision, and multimodal data analysis. I have worked on deep learning-based problems involving biomedical imaging, hyperspectral data, nuclear medicine scans, and other complex visual datasets. Through these projects, I developed experience in model development, data analysis, multimodal learning, and evaluating AI systems in real-world settings. I am interested in extending this background toward reliable, human-centered, and multimodal AI systems that can address challenging problems across healthcare and other application domains.",
 links: {
   cv: "assets/Mansura_Naznine_CV.pdf",
-  scholar: "[ADD GOOGLE SCHOLAR LINK]",
-  github: "[ADD GITHUB LINK]",
-  linkedin: "[ADD LINKEDIN LINK]",
+  scholar: "https://scholar.google.com/citations?hl=en&user=zbqt1qUAAAAJ",
+  github: "https://github.com/naznine",
+  linkedin: "https://www.linkedin.com/in/mansura-naznine/",
+  researchgate: "",
   email: "naznine31@gmail.com",
-  researchgate: "https://www.researchgate.net/profile/Mansura-Naznine"
 },
 about: [
  "I am a researcher with a B.Sc. in Computer Science & Engineering from Rajshahi University of Engineering & Technology (RUET), Bangladesh. I began in image processing and data compression as an undergraduate, then moved into disease detection and classification from medical and agricultural images.",
@@ -37,7 +37,7 @@ projects: [
   methods:["Spectral–spatial integration","Cross-modal attention","Swin Transformer","Patient-level train/test splitting"],
   challenge:"Hyperspectral data are high-dimensional, and evaluation must separate patients. In a related review I co-authored, intra-patient validation was found to inflate reported performance.",
   pub:"Engineering Applications of Artificial Intelligence, 2026",
-  links:{paper:"https://doi.org/10.1016/j.engappai.2026.114883", code:"[ADD CODE LINK]"}
+  links:{paper:"https://doi.org/10.1016/j.engappai.2026.114883", code:""}
  },
  {
   title:"Renal Scarring Detection from DMSA Scans",
